@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royal Essence Perfumes</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --black: #111;
+      --white: #fff;
+      --gold: #d4af37;
+    }
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: var(--white);
+      color: var(--black);
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: var(--black);
+      color: var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: var(--white);
+    }
+    nav .menu-toggle { display: none; }
+
+    /* Home */
+    .home { text-align: center; padding: 60px 20px; }
+    .home img { max-width: 600px; width: 100%; border-radius: 12px; }
+    .home h1 { margin-top: 20px; font-size: 36px; }
+
+    /* Products */
+    .products { padding: 60px 20px; text-align: center; }
+    .products h2 { font-size: 30px; margin-bottom: 30px; }
+    .product-list {
+      display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+    }
+    .product {
+      background: var(--white);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 250px; text-align: center; position: relative;
+    }
+    .product img { width: 100%; border-radius: 12px; }
+    .discount-tag {
+      position: absolute; top: 10px; right: 10px;
+      background: var(--white); border: 1px solid red;
+      padding: 5px 10px; border-radius: 8px; font-size: 14px; font-weight: bold;
+    }
+    .discount-tag .old { text-decoration: line-through; color: red; margin-right: 5px; }
+    .discount-tag .new { color: green; }
+
+    .buy-btn {
+      margin-top: 10px; padding: 10px 18px;
+      background: var(--gold); border: none; border-radius: 8px;
+      font-weight: bold; cursor: pointer;
+    }
+    .buy-btn:hover { background: var(--black); color: var(--gold); }
+
+    /* About */
+    .about { padding: 60px 20px; background: #fafafa; text-align: center; }
+    .about-content { max-width: 800px; margin: auto; text-align: left; }
+    .benefits,.discounts {
+      margin-top: 30px; padding: 20px; background: var(--white);
+      border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--black); color: var(--gold);
+      text-align: center; padding: 30px 20px;
+    }
+    footer a { color: var(--gold); margin: 0 10px; font-size: 22px; }
+    footer a:hover { color: var(--white); }
+
+    /* Cart Drawer */
+    .cart-drawer {
+      position: fixed; top: 0; right: -400px;
+      width: 350px; height: 100%; background: var(--white);
+      box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+      transition: right 0.4s ease; z-index: 2000;
+      display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-header { padding: 20px; font-weight: bold; border-bottom: 1px solid #ddd; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+    .cart-footer { padding: 20px; border-top: 1px solid #ddd; }
+    .cart-footer button {
+      width: 100%; padding: 12px; background: var(--gold);
+      border: none; border-radius: 8px; font-weight: bold; cursor: pointer;
+    }
+
+    /* Modal */
+    .modal {
+      display: none; position: fixed; z-index: 3000;
+      left: 0; top: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: var(--white); padding: 25px; border-radius: 12px;
+      width: 400px; max-width: 95%; text-align: center;
+    }
+    .modal-content h3 { margin-bottom: 20px; }
+    .modal-content button {
+      margin-top: 15px; padding: 10px 18px; border: none; border-radius: 8px;
+      font-weight: bold; cursor: pointer; background: var(--gold);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px; }
+      nav ul {
+        display: none; flex-direction: column; background: var(--black);
+        position: absolute; top: 60px; right: 0; width: 220px; padding: 15px;
+      }
+      nav ul.open { display: flex; }
+      nav .menu-toggle { display: block; font-size: 24px; cursor: pointer; color: var(--gold); }
+      .product-list { flex-direction: column; align-items: center; }
+      .cart-drawer { width: 100%; right: -100%; height: 60%; top: auto; bottom: 0; border-radius: 16px 16px 0 0; }
+      .cart-drawer.open { bottom: 0; right: 0; }
+    }
+  </style>
+
+ <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: #fff;
+      color: #333;
+    }
+
+    :root {
+      --gold: #d4af37;
+      --black: #0b0b0b;
+      --white: #fff;
+    }
+
+    /* Home Section */
+    .home {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--white);
+    }
+
+    .home img {
+      max-width: 650px;
+      margin-bottom: 20px;
+    }
+
+    .home h1 {
+      font-size: 36px;
+      color: var(--black);
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .membership-form {
+      margin: 40px auto;
+      max-width: 400px;
+      background: #fafafa;
+      padding: 25px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+
+    .membership-form h2 {
+      text-align: center;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .membership-form label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--black);
+    }
+
+    .membership-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .membership-form input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 5px rgba(212,175,55,0.6);
+    }
+
+    .membership-form button {
+      width: 100%;
+      padding: 12px;
+      background: var(--gold);
+      border: none;
+      border-radius: 8px;
+      color: var(--black);
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .membership-form button:hover {
+      background: var(--black);
+      color: var(--gold);
+    }
+
+    /* Products */
+    .products {
+      padding: 60px 20px;
+      text-align: center;
+      background: var(--white);
+    }
+
+    .products h2 {
+      margin-bottom: 40px;
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--black);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .products h2::after {
+      content: '';
+      display: block;
+      margin: 10px auto 0;
+      width: 80px;
+      height: 3px;
+      background: var(--gold);
+    }
+
+    .product-list {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .product {
+      background: var(--white);
+      border-radius: 15px;
+      padding: 18px;
+      width: 240px;
+      text-align: center;
+      border: 1px solid #ddd;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+      transition: 0.4s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-10px) scale(1.03);
+      border-color: var(--gold);
+      box-shadow: 0 10px 18px rgba(212,175,55,0.4);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .product h3 {
+      margin: 15px 0 5px;
+      font-size: 19px;
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 35px 15px;
+      margin-top: 60px;
+    }
+
+    footer h3 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      color: var(--gold);
+      font-size: 20px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      background: var(--gold);
+      color: var(--black);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --gold: #d4af37;
+  --black: #0b0b0b;
+  --white: #fff;
+}
+
+/* === Reset === */
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+}
+
+/* === Navbar Base === */
+nav {
+  background: var(--black);
+  color: var(--white);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav .logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* === Nav Links === */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+nav ul li a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  padding-bottom: 3px;
+  transition: 0.3s;
+}
+
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--white);
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* === Hamburger Menu Button === */
+.menu-toggle {
+  display: none;
+  width: 30px;
+  height: 22px;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.menu-toggle span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: all 0.4s ease;
+}
+
+.menu-toggle span:nth-child(1) {
+  top: 0;
+}
+.menu-toggle span:nth-child(2) {
+  top: 9px;
+}
+.menu-toggle span:nth-child(3) {
+  top: 18px;
+}
+
+/* Animation when active (turns into X) */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 9px;
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 9px;
+}
+
+/* === Responsive Styles === */
+
+/* Tablet adjustments */
+@media (max-width: 992px) {
+  nav {
+    padding: 15px 25px;
+  }
+  nav .logo {
+    font-size: 22px;
+  }
+  nav ul {
+    gap: 18px;
+  }
+}
+
+/* === Mobile === */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  nav ul {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: var(--black);
+    flex-direction: column;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+  }
+
+  nav ul.active {
+    max-height: 320px;
+    opacity: 1;
+  }
+
+  nav ul li {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    transform: translateY(-10px);
+    opacity: 0;
+    animation: fadeSlide 0.5s ease forwards;
+  }
+
+  nav ul.active li {
+    animation: fadeSlide 0.5s ease forwards;
+  }
+
+  nav ul.active li:nth-child(1) { animation-delay: 0.1s; }
+  nav ul.active li:nth-child(2) { animation-delay: 0.2s; }
+  nav ul.active li:nth-child(3) { animation-delay: 0.3s; }
+  nav ul.active li:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  nav ul li a {
+    justify-content: center;
+    font-size: 18px;
+  }
+}
+</style>
+
+<!-- === NAVBAR HTML === -->
+<nav>
+  <div class="logo"><i class="fas fa-crown"></i>  Royal Essence</div>
+
+  <button class="menu-toggle" id="menuBtn" aria-label="Menu Toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul id="navLinks">
+    <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+    <li><a href="#collection"><i class="fas fa-box-open"></i> Collection</a></li>
+    <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+  </ul>
+</nav>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  menuBtn.classList.toggle("active");
+  navLinks.classList.toggle("active");
+});
+</script>
+
+
+<!-- 🛍️ Smart Elegant Cart Drawer -->
+<div id="cartDrawer" class="cart-drawer">
+  <div class="cart-header">
+    <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+    <span class="close" onclick="toggleCart()">&times;</span>
+  </div>
+
+  <div id="cartItems" class="cart-items"></div>
+
+  <div class="cart-footer">
+    <div class="total-bar">
+      <p><strong>Total:</strong> ₹<span id="cartTotal">0</span></p>
+    </div>
+    <button class="pay-btn" onclick="checkout()">
+      <i class="fas fa-credit-card"></i> Pay Now
+    </button>
+  </div>
+</div>
+
+<!-- ✅ Delivery Confirmation Modal -->
+<div id="deliveryModal" class="modal">
+  <div class="modal-content large">
+    <span class="close" onclick="closeDeliveryModal()">&times;</span>
+    <h2>Order Summary</h2>
+    <div id="deliverySummary"></div>
+    <p style="color:green; font-weight:bold;">Payment: Paid ✅</p>
+
+    <h3>Delivery Status</h3>
+    <div class="status-buttons">
+      <button onclick="setStatus('Delivered')"><i class="fas fa-check-circle"></i> Delivered</button>
+      <button onclick="setStatus('Not Delivered')"><i class="fas fa-times-circle"></i> Not Delivered</button>
+      <button onclick="setStatus('Pending')"><i class="fas fa-clock"></i> Pending</button>
+    </div>
+    <p id="finalStatus" style="margin-top:15px; font-weight:bold; color:var(--gold);"></p>
+  </div>
+</div>
+
+<style>
+:root {
+  --gold: #d4af37;
+  --black: #1c1c1c;
+}
+
+/* 🛍️ Cart Drawer */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 360px;
+  max-width: 95%;
+  height: 100%;
+  background: rgba(40, 35, 25, 0.95);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  border-left: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+  padding: 20px;
+  transition: all 0.4s ease-in-out;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-drawer.open { right: 0; }
+
+/* Header */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.cart-header h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.cart-header .close {
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--gold);
+  transition: 0.3s;
+}
+
+.cart-header .close:hover {
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* Items */
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) rgba(255,255,255,0.1);
+  padding-right: 5px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+
+.cart-item:hover {
+  transform: scale(1.02);
+}
+
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-right: 10px;
+  object-fit: cover;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.cart-item p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.cart-item p:nth-child(2) {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Quantity + Remove Controls */
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.qty-btn {
+  background: var(--gold);
+  border: none;
+  color: var(--black);
+  font-weight: bold;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.qty-btn:hover {
+  background: #fff;
+  color: var(--gold);
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 6px;
+}
+
+.remove-btn:hover {
+  transform: scale(1.2);
+  color: #ff6655;
+}
+
+.cart-item-details {
+  flex: 1;
+}
+
+/* Footer */
+.cart-footer {
+  border-top: 1px solid var(--gold);
+  padding-top: 12px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.total-bar {
+  font-size: 1rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+  animation: fadeIn 0.6s ease;
+}
+
+.pay-btn {
+  background: linear-gradient(90deg, var(--gold), #f5d76e);
+  color: var(--black);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+}
+
+.pay-btn:hover {
+  background: linear-gradient(90deg, #f5d76e, var(--gold));
+  transform: scale(1.05);
+}
+
+/* Modal */
+.modal-content.large {
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  padding: 25px;
+}
+
+.status-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status-buttons button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.status-buttons button:first-child { background: #28a745; color: #fff; }
+.status-buttons button:nth-child(2) { background: #dc3545; color: #fff; }
+.status-buttons button:nth-child(3) { background: #ffc107; color: #000; }
+
+/* Animation */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .cart-drawer { width: 90%; }
+  .cart-item img { width: 50px; height: 50px; }
+  .pay-btn { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .cart-drawer { width: 100%; right: -100%; }
+  .cart-drawer.open { right: 0; }
+  .cart-item img { width: 45px; height: 45px; }
+}
+</style>
+
+<script>
+let cart = [];
+
+function toggleCart() {
+  document.getElementById("cartDrawer").classList.toggle("open");
+}
+
+function addToCart(name, img, price) {
+  const existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ name, img, price, quantity: 1 });
+  }
+  updateCart();
+  toggleCart();
+}
+
+function updateCart() {
+  const cartItemsDiv = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  cartItemsDiv.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+    cartItemsDiv.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <div class="cart-item-details">
+          <p>${item.name}</p>
+          <p>₹${item.price} × ${item.quantity} = <span style="color:var(--gold)">₹${itemTotal}</span></p>
+          <div class="cart-controls">
+            <button class="qty-btn" onclick="changeQuantity(${index}, -1)">−</button>
+            <span>${item.quantity}</span>
+            <button class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
+            <button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        </div>
+      </div>`;
+  });
+
+  cartTotal.innerText = total;
+}
+
+function changeQuantity(index, delta) {
+  cart[index].quantity += delta;
+  if (cart[index].quantity <= 0) cart.splice(index, 1);
+  updateCart();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function checkout() {
+  toggleCart();
+  document.getElementById("deliverySummary").innerHTML =
+    cart.map(item => `<p>${item.name} × ${item.quantity} - ₹${item.price * item.quantity}</p>`).join("");
+  document.getElementById("deliveryModal").style.display = "block";
+}
+
+function closeDeliveryModal() {
+  document.getElementById("deliveryModal").style.display = "none";
+}
+
+function setStatus(status) {
+  document.getElementById("finalStatus").innerText = "Delivery Status: " + status;
+}
+</script>
+
+
+  <!-- Home Section -->
+  <section class="home" id="home">
+    <img src="branding/Screenshot 2025-10-02 185642.png" alt="Royal Essence Logo">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<section class="membership-section">
+  <div class="intro">
+    <h1 class="section-title"><i class="fas fa-crown"></i> Royal Essence Membership</h1>
+    <p class="intro-text">
+      Step into the realm of <strong>luxury, fragrance, and finesse</strong>.  
+      With <span class="highlight">Royal Essence</span>, every drop tells a royal tale. 
+      As a member, you’ll experience exclusive access to hand-crafted aromas,  
+      early launches, and personal scent styling sessions.
+    </p>
+    <p class="intro-text">
+      ✨ <strong>Exclusive Member Privileges:</strong>  
+      • 55% OFF on premium perfumes  
+      • Complimentary samples with every order  
+      • Early access to seasonal launches  
+      • Priority rewards and loyalty perks
+    </p>
+
+    <div class="buttons">
+      <a href="#membership-card" class="go-btn"><i class="fas fa-arrow-circle-down"></i> Go to Membership</a>
+      <a href="#landing" class="offer-btn"><i class="fas fa-gift"></i> Explore Offers</a>
+    </div>
+  </div>
+
+  <div id="membership-card" class="membership-card">
+    <div class="sparkle"></div>
+    <h2><i class="fas fa-gem"></i> Buy Membership</h2>
+
+    <form>
+      <div class="input-box">
+        <input type="text" required>
+        <label><i class="fas fa-id-card"></i> Account Number</label>
+      </div>
+
+      <div class="input-box">
+        <input type="text" required>
+        <label><i class="fas fa-university"></i> Bank Name</label>
+      </div>
+
+      <div class="input-box">
+        <input type="text" required>
+        <label><i class="fas fa-mobile-alt"></i> UPI ID</label>
+      </div>
+
+      <div class="input-box">
+        <input type="number" min="200" max="400" required>
+        <label><i class="fas fa-coins"></i> Amount (200 - 400)</label>
+      </div>
+
+      <button type="submit" class="buy-btn"><i class="fas fa-crown"></i> Buy Now</button>
+    </form>
+  </div>
+</section>
+
+<style>
+:root {
+  --gold: #d4af37;
+  --light-gold: #f5d66c;
+  --brown: #4e3b2a;
+  --white: #ffffff;
+  --offwhite: #f9f6f2;
+  --border: #e8dcc3;
+}
+
+/* ===== Base ===== */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--offwhite);
+  color: var(--brown);
+  overflow-x: hidden;
+}
+
+/* ===== Section ===== */
+.membership-section {
+  text-align: center;
+  padding: 100px 20px;
+  position: relative;
+  background: linear-gradient(180deg, #fffdf5 0%, #fff 100%);
+  overflow: hidden;
+}
+
+.section-title {
+  color: var(--gold);
+  font-size: 2.3rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px rgba(212,175,55,0.5);
+  animation: shimmerText 3s infinite linear;
+}
+
+.section-title i {
+  margin-right: 8px;
+}
+
+@keyframes shimmerText {
+  0%, 100% { text-shadow: 0 0 10px rgba(212,175,55,0.3); }
+  50% { text-shadow: 0 0 25px rgba(245,214,108,0.8); }
+}
+
+/* ===== Intro ===== */
+.intro {
+  max-width: 720px;
+  margin: 0 auto 50px;
+  animation: fadeDown 1.2s ease;
+}
+
+.intro-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--brown);
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* ===== Buttons ===== */
+.go-btn, .offer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, var(--gold), var(--light-gold));
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+}
+
+.go-btn:hover, .offer-btn:hover {
+  background: var(--white);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(212,175,55,0.4);
+}
+
+/* ===== Card ===== */
+.membership-card {
+  background: linear-gradient(145deg, #fff, #fef8e5);
+  border: 2px solid rgba(212,175,55,0.3);
+  border-radius: 18px;
+  width: 90%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 35px 28px;
+  box-shadow: 0 0 30px rgba(212,175,55,0.2);
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 1s ease;
+}
+
+.membership-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 45px rgba(212,175,55,0.5);
+}
+
+/* Sparkle animation */
+.sparkle {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  opacity: 0;
+  animation: sparkleMove 5s infinite ease-in-out;
+}
+
+.membership-card:hover .sparkle { opacity: 1; }
+
+@keyframes sparkleMove {
+  0% { transform: translate(0,0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translate(25%,25%) rotate(180deg); opacity: 0.6; }
+  100% { transform: translate(0,0) rotate(360deg); opacity: 0.3; }
+}
+
+/* ===== Inputs ===== */
+.input-box {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  background: rgba(255,255,255,0.85);
+  border-radius: 10px;
+  color: var(--brown);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-box label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #b8a88c;
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: 0.3s ease;
+  background: var(--white);
+  padding: 0 4px;
+}
+
+.input-box i {
+  color: var(--gold);
+  margin-right: 6px;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+  top: -10px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: var(--gold);
+}
+
+/* ===== Button ===== */
+.buy-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: linear-gradient(135deg, var(--gold), var(--light-gold));
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 0 20px rgba(212,175,55,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.buy-btn:hover {
+  background: var(--white);
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  transform: translateY(-3px);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+
+
+<!-- 🌸 Discount Section – Elegant Perfume Banners -->
+<section id="discount" class="discount-section">
+
+  <!-- 🏷️ Simple Discount Corner Heading -->
+  <div class="discount-header">
+    <h1><i class="fas fa-tags"></i>Discount Corner</h1>
+  </div>
+
+  <!-- ✨ Perfume Banner 1 -->
+  <div class="perfume-banner elegant">
+    <div class="banner-inner">
+      <div class="perfume-image">
+        <img src="image/—Pngtree—3d perfume bottle yellow_7571547.png" alt="Musk Rajali">
+      </div>
+      <div class="perfume-info">
+        <h2>Musk Rajali</h2>
+        <p class="tagline">A touch of royal fragrance</p>
+        <div class="offers">
+          <span class="offer">25% OFF</span> for Customers<br>
+          <span class="offer">55% OFF</span> for Members
+        </div>
+        <a href="#collection" class="collection-btn">View Collection</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✨ Perfume Banner 2 -->
+  <div class="perfume-banner elegant reverse">
+    <div class="banner-inner">
+      <div class="perfume-image">
+        <img src="image/pngtree-golden-attar-bottle-design-png-image_20577196.png" alt="Night Musk">
+      </div>
+      <div class="perfume-info">
+        <h2>Night Musk</h2>
+        <p class="tagline">Intense. Mysterious. Timeless.</p>
+        <div class="offers">
+          <span class="offer">25% OFF</span> for Customers<br>
+          <span class="offer">55% OFF</span> for Members
+        </div>
+        <a href="#collection" class="collection-btn">View Collection</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ✨ Elegant Discount Perfume Banner Section */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@400;500&display=swap');
+
+.discount-section {
+  padding: 40px 0;
+  background: #f8f7f3;
+  text-align: center;
+}
+
+/* 🏷️ Simple Heading */
+.discount-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.discount-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #b8860b;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  background: linear-gradient(90deg, #ffcc33, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.discount-icon {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+}
+
+/* Banner container */
+.perfume-banner {
+  max-width: 850px;
+  width: 90%;
+  margin: 40px auto;
+  background: radial-gradient(circle at 20% 20%, #fdfcf8 0%, #f3f1ed 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.perfume-banner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Layout */
+.banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 40px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.reverse .banner-inner {
+  flex-direction: row-reverse;
+}
+
+/* Perfume Image */
+.perfume-image img {
+  width: 220px;
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
+  transition: transform 0.4s ease;
+}
+
+.perfume-banner:hover .perfume-image img {
+  transform: scale(1.08);
+}
+
+/* Info Box */
+.perfume-info {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 18px 26px;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  max-width: 260px;
+}
+
+.perfume-info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #2a2a2a;
+  margin-bottom: 6px;
+}
+
+.tagline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.offers {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.offer {
+  display: inline-block;
+  background: linear-gradient(90deg, #ffda79, #ffb347);
+  color: #111;
+  padding: 3px 9px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-right: 5px;
+  box-shadow: 0 2px 6px rgba(255, 200, 0, 0.25);
+}
+
+/* View Collection Button */
+.collection-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #ffb347, #ffcc33);
+  color: #111;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(255, 180, 0, 0.3);
+}
+
+.collection-btn:hover {
+  background: linear-gradient(90deg, #ffcc33, #ffe17a);
+  transform: scale(1.05);
+}
+
+/* Subtle Background Texture */
+.perfume-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* 🌍 Responsive Design */
+@media (max-width: 992px) {
+  .discount-header h1 {
+    font-size: 2rem;
+  }
+  .perfume-image img {
+    width: 190px;
+  }
+}
+
+@media (max-width: 768px) {
+  .discount-header h1 {
+    font-size: 1.8rem;
+  }
+  .banner-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .perfume-info {
+    text-align: center;
+  }
+  .perfume-image img {
+    width: 170px;
+  }
+}
+
+@media (max-width: 480px) {
+  .discount-header h1 {
+    font-size: 1.6rem;
+  }
+  .discount-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .perfume-image img {
+    width: 150px;
+  }
+}
+</style>
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- === LUXURY LANDING SECTION === -->
+<section class="landing"   class="landing" id="landing">
+  <!-- Perfume Slider -->
+  <div class="perfume-slider">
+    <div class="circle-frame">
+      <img src="image/—Pngtree—3d perfume bottle yellow_7571547.png" class="perfume active" alt="Musk Rajali">
+      <img src="image/pngtree-golden-attar-bottle-design-png-image_20577196.png" class="perfume perfume-small" alt="Night Musk">
+    </div>
+  </div>
+
+  <!-- Right Text Section -->
+  <div class="landing-text">
+    <div class="title-line">
+      <i class="fas fa-crown"></i>
+      <span>ROYAL ESSENCE</span>
+    </div>
+
+    <div class="switch-btns">
+      <button class="perfume-btn active" data-index="0">
+        <i class="fas fa-gem"></i> MUSK RAJALI
+      </button>
+      <button class="perfume-btn" data-index="1">
+        <i class="fas fa-moon"></i> NIGHT MUSK
+      </button>
+    </div>
+
+    <div class="decor-band">
+      <div class="diamond small left"></div>
+      <div class="diamond large"></div>
+      <div class="diamond small right"></div>
+    </div>
+
+    <div class="offer">55% OFF FOR EXCLUSIVE MEMBERS</div>
+
+    <a href="#collection" class="explore-btn">
+      <i class="fas fa-gem btn-icon"></i> EXPLORE COLLECTION
+    </a>
+  </div>
+</section>
+
+<style>
+:root {
+  --gold: #ffd700;
+  --deep-red: #5e0505;
+  --bright-red: #c21616;
+  --black: #000;
+  --white: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--white);
+}
+
+/* === LANDING SECTION === */
+.landing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 90px 100px;
+  background: linear-gradient(90deg, var(--deep-red) 0%, var(--bright-red) 80%);
+  border-radius: 0 200px 200px 0;
+  color: var(--black);
+  overflow: hidden;
+  position: relative;
+  gap: 50px;
+}
+
+/* === PERFUME SLIDER === */
+.perfume-slider {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-frame {
+  width: 430px;
+  height: 430px;
+  background: radial-gradient(circle at 30% 30%, #fff 70%, #f2f2f2 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.5),
+              0 25px 60px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.6s ease;
+}
+
+.perfume {
+  position: absolute;
+  width: 200%;
+  opacity: 0;
+  transform: translateX(100%) rotate(20deg);
+  transition: transform 1.2s ease, opacity 0.8s ease;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+}
+
+/* Slightly smaller second perfume */
+.perfume.perfume-small {
+  width: 110%;
+}
+
+.perfume.active {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+/* === TEXT SIDE === */
+.landing-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.title-line {
+  background: var(--gold);
+  padding: 14px 30px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--deep-red);
+  text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.7);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.title-line i {
+  color: var(--black);
+  font-size: 1.8rem;
+}
+
+/* === PERFUME BUTTONS === */
+.switch-btns {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.perfume-btn {
+  background: linear-gradient(145deg, #1c1c1c, #333);
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.perfume-btn:hover {
+  background: linear-gradient(145deg, var(--gold), #f5e173);
+  color: var(--black);
+  transform: translateY(-3px);
+}
+
+.perfume-btn.active {
+  background: linear-gradient(145deg, var(--gold), #ffed97);
+  color: var(--black);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+}
+
+/* === DECOR BAND === */
+.decor-band {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: #999;
+  margin: 20px 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.decor-band .diamond {
+  position: absolute;
+  transform: rotate(45deg);
+}
+
+.decor-band .diamond.large {
+  width: 16px;
+  height: 16px;
+  background: #777;
+}
+
+.decor-band .diamond.small {
+  width: 10px;
+  height: 10px;
+  background: #aaa;
+}
+
+.decor-band .diamond.left { left: calc(50% - 32px); }
+.decor-band .diamond.right { right: calc(50% - 32px); }
+
+/* === OFFER === */
+.offer {
+  background: var(--gold);
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--deep-red);
+  text-transform: uppercase;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* === EXPLORE BUTTON === */
+.explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--black);
+  color: var(--gold);
+  padding: 16px 34px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.4s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.explore-btn:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: translateY(-3px);
+}
+
+.btn-icon {
+  font-size: 1.4rem;
+  color: #ff0066;
+  animation: sparkle 1.5s infinite ease-in-out;
+}
+
+@keyframes sparkle {
+  0%,100% { transform: rotate(0deg) scale(1); color: #ff0066; }
+  50% { transform: rotate(15deg) scale(1.2); color: #a100ff; }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 950px) {
+  .landing {
+    flex-direction: column;
+    text-align: center;
+    border-radius: 0;
+    padding: 60px 30px;
+  }
+
+  .landing-text { align-items: center; }
+  .circle-frame { width: 320px; height: 320px; }
+  .perfume { width: 130%; }
+}
+</style>
+
+<script>
+const perfumes = document.querySelectorAll('.perfume');
+const buttons = document.querySelectorAll('.perfume-btn');
+let current = 0;
+
+function showPerfume(index) {
+  if (index === current) return;
+  const prev = perfumes[current];
+  const next = perfumes[index];
+
+  // Slide + roll animation
+  prev.style.transform = 'translateX(-100%) rotate(-30deg)';
+  prev.style.opacity = '0';
+  next.style.transform = 'translateX(100%) rotate(30deg)';
+  next.style.opacity = '0';
+
+  setTimeout(() => {
+    next.classList.add('active');
+    prev.classList.remove('active');
+    next.style.transform = 'translateX(0) rotate(0deg)';
+    next.style.opacity = '1';
+  }, 100);
+
+  buttons.forEach(btn => btn.classList.remove('active'));
+  buttons[index].classList.add('active');
+  current = index;
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const index = parseInt(btn.dataset.index);
+    showPerfume(index);
+  });
+});
+</script>
+
+
+<!-- Product Section -->
+<section class="products" id="collection">
+  <i class="fas fa-gem"></i>
+  <h2>Our Collection</h2>
+  <div class="product-list">
+    <div class="product">
+      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg" alt="Night Musk">
+      <h3>Night Musk </h3>
+      <p class="price">
+        <span class="old-price">₹499</span>
+        <span class="new-price">₹399</span>
+      </p>
+      <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-bag"></i>  BUY NOW </button>
+
+      <button class="buy-btn" onclick="addToCart('Night Musk Shanaya', 'image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg', 399)"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
+
+    </div>
+    <div class="product">
+      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg" alt="Musk Rajali">
+      <h3>Musk Rajali</h3>
+      <p class="price">
+        <span class="old-price">₹499</span>
+        <span class="new-price">₹399</span>
+      </p>
+    <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-bag"></i>  BUY NOW </button>
+
+<button class="buy-btn" onclick="addToCart('Musk Rajali', 'image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg', 399)"><i class="fas fa-shopping-cart"></i>  ADD TO CART</button>
+
+    </div>
+  </div>
+</section>
+
+<style>/* Price styling */
+.price {
+  margin: 8px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: red;
+  margin-right: 8px;
+}
+
+.new-price {
+  color: green;
+}
+</style>
+
+<!-- Payment Popup Modal -->
+<div id="paymentModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Payment Details</h2>
+    <form>
+      <label>Account Number</label>
+      <input type="text" placeholder="Enter Account Number" required>
+
+      <label>UPI ID</label>
+      <input type="text" placeholder="Enter UPI ID" required>
+
+      <label>Bank Name</label>
+      <input type="text" placeholder="Enter Bank Name" required>
+
+      <label>Amount</label>
+      <input type="text" value="₹399 (Discounted from ₹499)" readonly>
+
+      <button type="submit">Pay Now</button>
+    </form>
+  </div>
+</div>
+
+<style>/* Modal Popup */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  padding-top: 80px;
+}
+
+.modal-content {
+  background: var(--white);
+  margin: auto;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.modal-content h2 {
+  text-align: center;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 12px;
+  background: var(--gold);
+  border: none;
+  border-radius: 8px;
+  color: var(--black);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-content button:hover {
+  background: var(--black);
+  color: var(--gold);
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--black);
+  cursor: pointer;
+}
+</style>
+
+<script>
+function openModal() {
+  document.getElementById("paymentModal").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("paymentModal").style.display = "none";
+}
+// Close modal when clicking outside
+window.onclick = function(event) {
+  let modal = document.getElementById("paymentModal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+
+
+
+<!-- About Section -->
+<section class="about" id="about">
+  <h2>About Royal Essence</h2>
+  <div class="about-content">
+    <p>
+      <i class="fas fa-crown" style="color:var(--gold); margin-right:8px;"></i>
+      <b>Royal Essence</b> is a premium perfume brand that blends timeless luxury with modern elegance.  
+      Crafted with the finest natural ingredients, each fragrance tells a story of sophistication, charm, and class.  
+      Our mission is to bring you an unforgettable essence that defines your royal aura.
+    </p>
+
+    <!-- Membership Benefits -->
+    <div class="benefits">
+      <h3><i class="fas fa-gem"></i> Membership Benefits</h3>
+      <ul>
+        <li><i class="fas fa-percent" style="color:green;"></i> Exclusive discounts up to <b>55% off </b> on all collections</li>
+        <li><i class="fas fa-bolt" style="color:orange;"></i> Early access to new product launches</li>
+        <li><i class="fas fa-gift" style="color:purple;"></i> Special gift samples and cashback with every order with more than 5 orders </li>
+        <li><i class="fas fa-headset" style="color:#007bff;"></i> VIP customer support & fragrance consultations</li>
+      </ul>
+    </div>
+
+    <!-- Discounts -->
+    <div class="discounts">
+      <h3><i class="fas fa-tags"></i> Exclusive Discounts</h3>
+      <p>
+        Members enjoy a flat <b>35%–45% discount</b> on our premium perfumes.  
+        <i class="fas fa-star" style="color:gold;"></i> Seasonal offers and festival deals bring even more luxury within your reach.  
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<style>
+
+/* About Section */
+.about {
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #fafafa, #fff);
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+}
+
+.about h2::after {
+  content: '';
+  display: block;
+  margin: 12px auto 0;
+  width: 90px;
+  height: 3px;
+  background: var(--gold);
+}
+
+.about-content {
+  max-width: 850px;
+  margin: auto;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #444;
+}
+
+.about-content p {
+  font-size: 17px;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: #fff;
+  border-radius: 12px;
+  border-left: 5px solid var(--gold);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Benefits & Discounts Cards */
+.benefits, .discounts {
+  margin-top: 30px;
+  padding: 25px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.benefits:hover, .discounts:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 8px 18px rgba(212,175,55,0.25);
+}
+
+.benefits h3, .discounts h3 {
+  color: var(--gold);
+  margin-bottom: 18px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.benefits ul {
+  list-style: none;
+  padding: 0;
+}
+
+.benefits ul li {
+  margin-bottom: 12px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+</style>
+
+<style>
+/* Buy Now Button with Golden Glow */
+.buy-btn {
+  margin-top: 10px;
+  padding: 10px 18px;
+  background: var(--gold);
+  border: none;
+  border-radius: 8px;
+  color: var(--black);
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6), 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.buy-btn:hover {
+  background: var(--black);
+  color: var(--gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.9), 0 0 30px rgba(212, 175, 55, 0.7), 0 0 45px rgba(212, 175, 55, 0.5);
+}
+</style>
+
+
+<!-- Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+
+<!-- === FOOTER SECTION === -->
+<footer class="royal-footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <i class="fas fa-crown"></i>
+      <h2 class="footer-title">Royal Essence</h2>
+      <div class="footer-accent">
+      </div>
+    </div>
+
+    <p class="footer-desc">
+      Experience the elegance of handcrafted perfumes — inspired by royal grace
+      and timeless luxury. Every scent is a masterpiece waiting to be worn.
+    </p>
+
+    <div class="footer-buttons">
+      <a
+        href="https://instagram.com/royal___essence"
+        target="_blank"
+        class="footer-btn"
+      >
+        <i class="fab fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
+
+      <a href="mailto:royalessence@example.com" class="footer-btn">
+        <i class="fas fa-envelope"></i>
+        <span>Email</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Royal Essence. Crafted with Elegance & Passion.</p>
+  </div>
+</footer>
+
+<style>
+:root {
+  --gold: #d4af37;
+  --light-gold: #f8e7a1;
+  --black: #000;
+  --dark: #0d0d0d;
+  --text-light: #f3e8c9;
+}
+
+/* === BASE === */
+body {
+  margin: 0;
+  background: #0d0d0d;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === FOOTER === */
+.royal-footer {
+  background: #000;
+  color: var(--text-light);
+  text-align: center;
+  padding: 80px 20px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative golden top line */
+.royal-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: shimmer-line 6s infinite linear;
+}
+
+/* === LOGO AREA === */
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fade-up 1.2s ease forwards;
+  margin-bottom: 18px;
+}
+
+.footer-logo i {
+  font-size: 2.8rem;
+  color: var(--gold);
+  animation: soft-glow 2s infinite alternate;
+}
+
+.footer-title {
+  margin: 10px 0 5px;
+  font-size: 2.2rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, var(--gold), var(--light-gold), var(--gold));
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-flow 6s linear infinite;
+  letter-spacing: 1.8px;
+}
+
+/* === ACCENT (Perfume Bottle Icon) === */
+.footer-accent i {
+  font-size: 1.2rem;
+  color: var(--gold);
+  opacity: 0.9;
+  margin-top: 4px;
+  animation: rotate-sparkle 5s infinite linear;
+}
+
+/* === TEXT === */
+.footer-desc {
+  max-width: 480px;
+  margin: 10px auto 25px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #c7b375;
+  animation: fade-up 1.5s ease forwards;
+}
+
+/* === BUTTONS === */
+.footer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  animation: fade-up 2s ease forwards;
+}
+
+.footer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  border-radius: 50px;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.footer-btn i {
+  font-size: 1.1rem;
+  transition: 0.3s ease;
+}
+
+.footer-btn:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.footer-btn:hover i {
+  transform: rotate(-10deg);
+}
+
+/* === FOOTER BOTTOM === */
+.footer-bottom {
+  margin-top: 40px;
+  font-size: 0.85rem;
+  color: #c9b469;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  padding-top: 18px;
+  animation: fade-up 2.5s ease forwards;
+}
+
+/* === ANIMATIONS === */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer-line {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes gold-flow {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 300%;
+  }
+}
+
+@keyframes soft-glow {
+  0% {
+    text-shadow: 0 0 6px rgba(212, 175, 55, 0.2);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+  }
+}
+
+@keyframes rotate-sparkle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .footer-title {
+    font-size: 1.7rem;
+  }
+
+  .footer-desc {
+    font-size: 0.9rem;
+  }
+
+  .footer-btn {
+    width: 80%;
+    justify-content: center;
+  }
+}
+</style>
+
+  
+</body>
+</html>
