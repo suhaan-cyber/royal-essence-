@@ -579,348 +579,10 @@ menuBtn.addEventListener("click", () => {
 </script>
 
 
-<!-- 🛍️ Smart Elegant Cart Drawer -->
-<div id="cartDrawer" class="cart-drawer">
-  <div class="cart-header">
-    <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
-    <span class="close" onclick="toggleCart()">&times;</span>
-  </div>
-
-  <div id="cartItems" class="cart-items"></div>
-
-  <div class="cart-footer">
-    <div class="total-bar">
-      <p><strong>Total:</strong> ₹<span id="cartTotal">0</span></p>
-    </div>
-    <button class="pay-btn" onclick="checkout()">
-      <i class="fas fa-credit-card"></i> Pay Now
-    </button>
-  </div>
-</div>
-
-<!-- ✅ Delivery Confirmation Modal -->
-<div id="deliveryModal" class="modal">
-  <div class="modal-content large">
-    <span class="close" onclick="closeDeliveryModal()">&times;</span>
-    <h2>Order Summary</h2>
-    <div id="deliverySummary"></div>
-    <p style="color:green; font-weight:bold;">Payment: Paid ✅</p>
-
-    <h3>Delivery Status</h3>
-    <div class="status-buttons">
-      <button onclick="setStatus('Delivered')"><i class="fas fa-check-circle"></i> Delivered</button>
-      <button onclick="setStatus('Not Delivered')"><i class="fas fa-times-circle"></i> Not Delivered</button>
-      <button onclick="setStatus('Pending')"><i class="fas fa-clock"></i> Pending</button>
-    </div>
-    <p id="finalStatus" style="margin-top:15px; font-weight:bold; color:var(--gold);"></p>
-  </div>
-</div>
-
-<style>
-:root {
-  --gold: #d4af37;
-  --black: #1c1c1c;
-}
-
-/* 🛍️ Cart Drawer */
-.cart-drawer {
-  position: fixed;
-  top: 0;
-  right: -400px;
-  width: 360px;
-  max-width: 95%;
-  height: 100%;
-  background: rgba(40, 35, 25, 0.95);
-  backdrop-filter: blur(12px);
-  color: #fff;
-  border-left: 2px solid rgba(212, 175, 55, 0.3);
-  box-shadow: -4px 0 20px rgba(0,0,0,0.5);
-  padding: 20px;
-  transition: all 0.4s ease-in-out;
-  z-index: 3000;
-  display: flex;
-  flex-direction: column;
-}
-
-.cart-drawer.open { right: 0; }
-
-/* Header */
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 10px;
-  margin-bottom: 15px;
-}
-
-.cart-header h3 {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.5px;
-}
-
-.cart-header .close {
-  font-size: 1.6rem;
-  cursor: pointer;
-  color: var(--gold);
-  transition: 0.3s;
-}
-
-.cart-header .close:hover {
-  color: #fff;
-  transform: rotate(90deg);
-}
-
-/* Items */
-.cart-items {
-  flex: 1;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold) rgba(255,255,255,0.1);
-  padding-right: 5px;
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  background: rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 12px;
-  transition: transform 0.3s ease;
-}
-
-.cart-item:hover {
-  transform: scale(1.02);
-}
-
-.cart-item img {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  margin-right: 10px;
-  object-fit: cover;
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
-}
-
-.cart-item p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-.cart-item p:nth-child(2) {
-  color: var(--gold);
-  font-weight: 600;
-}
-
-/* Quantity + Remove Controls */
-.cart-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-}
-
-.qty-btn {
-  background: var(--gold);
-  border: none;
-  color: var(--black);
-  font-weight: bold;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.qty-btn:hover {
-  background: #fff;
-  color: var(--gold);
-}
-
-.remove-btn {
-  background: transparent;
-  border: none;
-  color: #f44336;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-left: 6px;
-}
-
-.remove-btn:hover {
-  transform: scale(1.2);
-  color: #ff6655;
-}
-
-.cart-item-details {
-  flex: 1;
-}
-
-/* Footer */
-.cart-footer {
-  border-top: 1px solid var(--gold);
-  padding-top: 12px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.total-bar {
-  font-size: 1rem;
-  color: var(--gold);
-  margin-bottom: 10px;
-  animation: fadeIn 0.6s ease;
-}
-
-.pay-btn {
-  background: linear-gradient(90deg, var(--gold), #f5d76e);
-  color: var(--black);
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
-}
-
-.pay-btn:hover {
-  background: linear-gradient(90deg, #f5d76e, var(--gold));
-  transform: scale(1.05);
-}
-
-/* Modal */
-.modal-content.large {
-  max-width: 480px;
-  width: 90%;
-  text-align: center;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  padding: 25px;
-}
-
-.status-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.status-buttons button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.status-buttons button:first-child { background: #28a745; color: #fff; }
-.status-buttons button:nth-child(2) { background: #dc3545; color: #fff; }
-.status-buttons button:nth-child(3) { background: #ffc107; color: #000; }
-
-/* Animation */
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .cart-drawer { width: 90%; }
-  .cart-item img { width: 50px; height: 50px; }
-  .pay-btn { width: 100%; }
-}
-
-@media (max-width: 480px) {
-  .cart-drawer { width: 100%; right: -100%; }
-  .cart-drawer.open { right: 0; }
-  .cart-item img { width: 45px; height: 45px; }
-}
-</style>
-
-<script>
-let cart = [];
-
-function toggleCart() {
-  document.getElementById("cartDrawer").classList.toggle("open");
-}
-
-function addToCart(name, img, price) {
-  const existing = cart.find(item => item.name === name);
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({ name, img, price, quantity: 1 });
-  }
-  updateCart();
-  toggleCart();
-}
-
-function updateCart() {
-  const cartItemsDiv = document.getElementById("cartItems");
-  const cartTotal = document.getElementById("cartTotal");
-  cartItemsDiv.innerHTML = "";
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    const itemTotal = item.price * item.quantity;
-    total += itemTotal;
-    cartItemsDiv.innerHTML += `
-      <div class="cart-item">
-        <img src="${item.img}" alt="${item.name}">
-        <div class="cart-item-details">
-          <p>${item.name}</p>
-          <p>₹${item.price} × ${item.quantity} = <span style="color:var(--gold)">₹${itemTotal}</span></p>
-          <div class="cart-controls">
-            <button class="qty-btn" onclick="changeQuantity(${index}, -1)">−</button>
-            <span>${item.quantity}</span>
-            <button class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
-            <button class="remove-btn" onclick="removeItem(${index})"><i class="fas fa-trash-alt"></i></button>
-          </div>
-        </div>
-      </div>`;
-  });
-
-  cartTotal.innerText = total;
-}
-
-function changeQuantity(index, delta) {
-  cart[index].quantity += delta;
-  if (cart[index].quantity <= 0) cart.splice(index, 1);
-  updateCart();
-}
-
-function removeItem(index) {
-  cart.splice(index, 1);
-  updateCart();
-}
-
-function checkout() {
-  toggleCart();
-  document.getElementById("deliverySummary").innerHTML =
-    cart.map(item => `<p>${item.name} × ${item.quantity} - ₹${item.price * item.quantity}</p>`).join("");
-  document.getElementById("deliveryModal").style.display = "block";
-}
-
-function closeDeliveryModal() {
-  document.getElementById("deliveryModal").style.display = "none";
-}
-
-function setStatus(status) {
-  document.getElementById("finalStatus").innerText = "Delivery Status: " + status;
-}
-</script>
-
 
   <!-- Home Section -->
   <section class="home" id="home">
-    <img src="branding/Screenshot 2025-10-02 185642.png" alt="Royal Essence Logo">
+    <img src="Screenshot 2025-10-04 131337.png" alt="Royal Essence Logo">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <section class="membership-section">
@@ -1212,7 +874,7 @@ body {
   <div class="perfume-banner elegant">
     <div class="banner-inner">
       <div class="perfume-image">
-        <img src="image/—Pngtree—3d perfume bottle yellow_7571547.png" alt="Musk Rajali">
+        <img src="—Pngtree—3d perfume bottle yellow_7571547.png" alt="Musk Rajali">
       </div>
       <div class="perfume-info">
         <h2>Musk Rajali</h2>
@@ -1230,7 +892,7 @@ body {
   <div class="perfume-banner elegant reverse">
     <div class="banner-inner">
       <div class="perfume-image">
-        <img src="image/pngtree-golden-attar-bottle-design-png-image_20577196.png" alt="Night Musk">
+        <img src="pngtree-golden-attar-bottle-design-png-image_20577196.png" alt="Night Musk">
       </div>
       <div class="perfume-info">
         <h2>Night Musk</h2>
@@ -1450,8 +1112,8 @@ body {
   <!-- Perfume Slider -->
   <div class="perfume-slider">
     <div class="circle-frame">
-      <img src="image/—Pngtree—3d perfume bottle yellow_7571547.png" class="perfume active" alt="Musk Rajali">
-      <img src="image/pngtree-golden-attar-bottle-design-png-image_20577196.png" class="perfume perfume-small" alt="Night Musk">
+      <img src="—Pngtree—3d perfume bottle yellow_7571547.png" class="perfume active" alt="Musk Rajali">
+      <img src="pngtree-golden-attar-bottle-design-png-image_20577196.png" class="perfume perfume-small" alt="Night Musk">
     </div>
   </div>
 
@@ -1756,27 +1418,24 @@ buttons.forEach(btn => {
   <h2>Our Collection</h2>
   <div class="product-list">
     <div class="product">
-      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg" alt="Night Musk">
+      <img src="Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg" alt="Night Musk">
       <h3>Night Musk </h3>
       <p class="price">
         <span class="old-price">₹499</span>
         <span class="new-price">₹399</span>
       </p>
-      <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-bag"></i>  BUY NOW </button>
+      <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-cart"></i>   BUY NOW </button>
 
-      <button class="buy-btn" onclick="addToCart('Night Musk Shanaya', 'image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg', 399)"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
 
     </div>
     <div class="product">
-      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg" alt="Musk Rajali">
+      <img src="Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg" alt="Musk Rajali">
       <h3>Musk Rajali</h3>
       <p class="price">
         <span class="old-price">₹499</span>
         <span class="new-price">₹399</span>
       </p>
-    <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-bag"></i>  BUY NOW </button>
-
-<button class="buy-btn" onclick="addToCart('Musk Rajali', 'image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg', 399)"><i class="fas fa-shopping-cart"></i>  ADD TO CART</button>
+    <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-cart"></i> </i>  BUY NOW </button>
 
     </div>
   </div>
@@ -2307,4 +1966,6 @@ body {
   
 </body>
 </html>
+
+
 
