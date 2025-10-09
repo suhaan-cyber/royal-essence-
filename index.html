@@ -1411,162 +1411,362 @@ buttons.forEach(btn => {
 });
 </script>
 
-
-<!-- Product Section -->
+<!-- 🌹 ROYAL ESSENCE COLLECTION -->
 <section class="products" id="collection">
   <i class="fas fa-gem"></i>
   <h2>Our Collection</h2>
+
   <div class="product-list">
     <div class="product">
-      <img src="Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg" alt="Night Musk">
-      <h3>Night Musk </h3>
+      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg" alt="Night Musk">
+      <h3>Night Musk</h3>
       <p class="price">
         <span class="old-price">₹499</span>
         <span class="new-price">₹399</span>
       </p>
-      <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-cart"></i>   BUY NOW </button>
-
-
+      <button class="buy-btn" onclick="openCart('Night Musk','image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg',399)">
+        <i class="fas fa-shopping-cart"></i> BUY NOW
+      </button>
     </div>
+
     <div class="product">
-      <img src="Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg" alt="Musk Rajali">
+      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg" alt="Musk Rajali">
       <h3>Musk Rajali</h3>
       <p class="price">
         <span class="old-price">₹499</span>
         <span class="new-price">₹399</span>
       </p>
-    <button class="buy-btn" onclick="openModal('Night Musk Shanaya')"><i class="fas fa-shopping-cart"></i> </i>  BUY NOW </button>
-
+      <button class="buy-btn" onclick="openCart('Musk Rajali','image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg',399)">
+        <i class="fas fa-shopping-cart"></i> BUY NOW
+      </button>
     </div>
   </div>
 </section>
 
-<style>/* Price styling */
-.price {
-  margin: 8px 0;
-  font-size: 16px;
-  font-weight: bold;
-}
+<!-- 🛒 CART MODAL -->
+<div id="cartModal" class="modal">
+  <div class="modal-content cart">
+    <span class="close" onclick="closeCart()">&times;</span>
+    <h2><i class="fas fa-crown"></i> Your Royal Cart</h2>
 
-.old-price {
-  text-decoration: line-through;
-  color: red;
-  margin-right: 8px;
-}
+    <div class="cart-item">
+      <img id="cart-img" src="" alt="Product">
+      <div class="cart-info">
+        <h3 id="cart-name">Product Name</h3>
+        <p id="cart-price">₹0</p>
+        <div class="quantity">
+          <button onclick="changeQty(-1)">−</button>
+          <span id="cart-qty">1</span>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" onclick="removeItem()"><i class="fas fa-trash"></i></button>
+    </div>
 
-.new-price {
-  color: green;
-}
-</style>
+    <div class="total">
+      <p><strong>Total:</strong> ₹<span id="cart-total">0</span></p>
+      <button class="checkout-btn" onclick="openPayment()">Proceed to Payment</button>
+    </div>
+  </div>
+</div>
 
-<!-- Payment Popup Modal -->
+<!-- 💳 PAYMENT MODAL -->
 <div id="paymentModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2>Payment Details</h2>
-    <form>
+  <div class="modal-content payment">
+    <span class="close" onclick="closePayment()">&times;</span>
+    <h2><i class="fas fa-lock"></i> Secure Payment</h2>
+    <form onsubmit="confirmPayment(event)">
       <label>Account Number</label>
       <input type="text" placeholder="Enter Account Number" required>
-
       <label>UPI ID</label>
       <input type="text" placeholder="Enter UPI ID" required>
-
       <label>Bank Name</label>
       <input type="text" placeholder="Enter Bank Name" required>
-
       <label>Amount</label>
-      <input type="text" value="₹399 (Discounted from ₹499)" readonly>
-
-      <button type="submit">Pay Now</button>
+      <input id="paymentAmount" type="text" readonly>
+      <button type="submit" class="checkout-btn">💰 Pay Now</button>
     </form>
   </div>
 </div>
 
-<style>/* Modal Popup */
+<script src="https://kit.fontawesome.com/a2e0e6ad6f.js" crossorigin="anonymous"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Poppins:wght@400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top, #fff9e6, #f7f0d7);
+  color: #4b2e05;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* === PRODUCTS SECTION === */
+.products {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: linear-gradient(to bottom, #fffdf5, #f8f3e3);
+}
+.products h2 {
+  font-family: 'Cinzel', serif;
+  color: #8b6b2b;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  letter-spacing: 2px;
+  text-shadow: 0 0 25px rgba(212,175,55,0.5);
+  margin-bottom: 2rem;
+}
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+.product {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 25px;
+  box-shadow: 0 0 25px rgba(212,175,55,0.25);
+  padding: 1.5rem;
+  transition: all 0.4s ease;
+  max-width: 320px;
+  width: 100%;
+}
+.product:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 40px rgba(212,175,55,0.45);
+}
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+.product h3 {
+  color: #4b2e05;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.price {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+.old-price {
+  text-decoration: line-through;
+  color: #b04b3a;
+}
+.new-price {
+  color: #27ae60;
+  font-weight: bold;
+}
+.buy-btn {
+  background: linear-gradient(90deg, #8b6b2b, #d4af37);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(212,175,55,0.4);
+}
+.buy-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 25px rgba(212,175,55,0.7);
+}
+
+/* === MODALS === */
 .modal {
   display: none;
   position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.6);
-  padding-top: 80px;
+  backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 1rem;
 }
-
 .modal-content {
-  background: var(--white);
-  margin: auto;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   position: relative;
+  background: linear-gradient(145deg, #fff8e1, #f6efd8);
+  border: 2px solid #d4af37;
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(212,175,55,0.5);
+  padding: 2rem;
+  width: min(600px, 95%);
+  animation: fadeInUp 0.4s ease;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 1.8rem;
+  color: #8b6b2b;
+  cursor: pointer;
 }
 
-.modal-content h2 {
-  text-align: center;
-  color: var(--gold);
-  margin-bottom: 20px;
+/* === CART ITEM === */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fffef8;
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 0 15px rgba(212,175,55,0.3);
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
-
-.modal-content label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
+.cart-item img {
+  width: 90px;
+  height: 90px;
+  border-radius: 15px;
+  border: 2px solid #d4af37;
+  object-fit: cover;
 }
-
-.modal-content input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.cart-info {
+  flex: 1;
 }
-
-.modal-content button {
-  width: 100%;
-  padding: 12px;
-  background: var(--gold);
+.cart-info h3 {
+  margin: 0;
+  color: #4b2e05;
+}
+.quantity {
+  display: flex;
+  align-items: center;
+}
+.quantity button {
+  background: #d4af37;
   border: none;
-  border-radius: 8px;
-  color: var(--black);
+  color: white;
   font-weight: bold;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.quantity span {
+  margin: 0 10px;
+  font-weight: bold;
+}
+.remove-btn {
+  background: none;
+  border: none;
+  color: #8b6b2b;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+.checkout-btn {
+  background: linear-gradient(to right, #d4af37, #8b6b2b);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 25px;
+  font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
 }
-
-.modal-content button:hover {
-  background: var(--black);
-  color: var(--gold);
+.checkout-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(212,175,55,0.6);
 }
 
-.close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--black);
-  cursor: pointer;
+/* === PAYMENT FORM === */
+.payment input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 10px;
+  border: 1px solid #d4af37;
+  outline: none;
+  margin-bottom: 1rem;
+}
+.payment input:focus {
+  box-shadow: 0 0 10px rgba(212,175,55,0.4);
+}
+
+/* === RESPONSIVE FIX === */
+@media (max-width: 768px) {
+  .product-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  .product {
+    padding: 1rem;
+  }
+}
+@media (max-width: 480px) {
+  .product-list {
+    grid-template-columns: 1fr;
+  }
+  .product {
+    width: 100%;
+  }
+  .modal-content {
+    padding: 1.5rem;
+  }
+  .checkout-btn {
+    width: 100%;
+  }
 }
 </style>
 
 <script>
-function openModal() {
-  document.getElementById("paymentModal").style.display = "block";
+let qty = 1;
+let price = 0;
+
+function openCart(name, img, cost) {
+  document.getElementById("cartModal").style.display = "flex";
+  document.getElementById("cart-name").textContent = name;
+  document.getElementById("cart-img").src = img;
+  document.getElementById("cart-price").textContent = "₹" + cost;
+  document.getElementById("cart-total").textContent = cost;
+  price = cost;
+  qty = 1;
 }
-function closeModal() {
+
+function closeCart() {
+  document.getElementById("cartModal").style.display = "none";
+}
+
+function changeQty(num) {
+  qty += num;
+  if (qty < 1) qty = 1;
+  document.getElementById("cart-qty").textContent = qty;
+  document.getElementById("cart-total").textContent = price * qty;
+}
+
+function removeItem() {
+  alert("Item removed from your royal cart!");
+  closeCart();
+}
+
+function openPayment() {
+  document.getElementById("cartModal").style.display = "none";
+  document.getElementById("paymentModal").style.display = "flex";
+  document.getElementById("paymentAmount").value = "₹" + price * qty;
+}
+
+function closePayment() {
   document.getElementById("paymentModal").style.display = "none";
 }
-// Close modal when clicking outside
-window.onclick = function(event) {
-  let modal = document.getElementById("paymentModal");
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+
+function confirmPayment(e) {
+  e.preventDefault();
+  alert("✅ Payment Successful! Thank you for shopping with Royal Essence 💎");
+  closePayment();
 }
 </script>
 
@@ -1966,6 +2166,7 @@ body {
   
 </body>
 </html>
+
 
 
 
