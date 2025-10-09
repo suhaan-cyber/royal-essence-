@@ -1412,16 +1412,15 @@ buttons.forEach(btn => {
 </script>
 
 
-
-
 <!-- 🌹 ROYAL ESSENCE COLLECTION -->
 <section class="products" id="collection">
   <i class="fas fa-gem"></i>
   <h2>Our Collection</h2>
 
   <div class="product-list">
+    <!-- Night Musk -->
     <div class="product">
-      <img src="Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg" alt="Night Musk">
+      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg" alt="Night Musk">
       <h3>Night Musk</h3>
       <p class="price">
         <span class="old-price">₹499</span>
@@ -1432,8 +1431,9 @@ buttons.forEach(btn => {
       </button>
     </div>
 
+    <!-- Musk Rajali -->
     <div class="product">
-      <img src="Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall (1).jpg" alt="Musk Rajali">
+      <img src="image/Red Maximalist Perfume Online Advertisement P - Made with PosterMyWall.jpg" alt="Musk Rajali">
       <h3>Musk Rajali</h3>
       <p class="price">
         <span class="old-price">₹499</span>
@@ -1448,7 +1448,7 @@ buttons.forEach(btn => {
 
 <!-- 🛒 CART MODAL -->
 <div id="cartModal" class="modal">
-  <div class="modal-content cart">
+  <div class="modal-content cart glass">
     <span class="close" onclick="closeCart()">&times;</span>
     <h2><i class="fas fa-crown"></i> Your Royal Cart</h2>
 
@@ -1475,7 +1475,7 @@ buttons.forEach(btn => {
 
 <!-- 💳 PAYMENT MODAL -->
 <div id="paymentModal" class="modal">
-  <div class="modal-content payment">
+  <div class="modal-content payment glass">
     <span class="close" onclick="closePayment()">&times;</span>
     <h2><i class="fas fa-lock"></i> Secure Payment</h2>
     <form onsubmit="confirmPayment(event)">
@@ -1499,7 +1499,7 @@ buttons.forEach(btn => {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at top, #fff9e6, #f7f0d7);
+  background: radial-gradient(circle at top, #fffaf0, #f5e8c7);
   color: #4b2e05;
   margin: 0;
   padding: 0;
@@ -1510,41 +1510,60 @@ body {
 .products {
   text-align: center;
   padding: 4rem 1rem;
-  background: linear-gradient(to bottom, #fffdf5, #f8f3e3);
+  background: linear-gradient(180deg, #fffdf5 0%, #f9f3e5 100%);
+  position: relative;
+  overflow: hidden;
+}
+.products::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  background: radial-gradient(circle at 30% 20%, rgba(255,223,107,0.2), transparent 70%);
+  z-index: 0;
 }
 .products h2 {
   font-family: 'Cinzel', serif;
   color: #8b6b2b;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  letter-spacing: 2px;
-  text-shadow: 0 0 25px rgba(212,175,55,0.5);
-  margin-bottom: 2rem;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  text-shadow: 0 0 20px rgba(212,175,55,0.6);
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 2;
 }
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
   justify-items: center;
+  z-index: 2;
+  position: relative;
 }
 .product {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 25px;
-  box-shadow: 0 0 25px rgba(212,175,55,0.25);
+  box-shadow: 0 10px 30px rgba(212,175,55,0.25);
   padding: 1.5rem;
   transition: all 0.4s ease;
-  max-width: 320px;
+  max-width: 340px;
   width: 100%;
+  backdrop-filter: blur(8px);
 }
 .product:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 40px rgba(212,175,55,0.45);
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(212,175,55,0.4);
 }
 .product img {
   width: 100%;
-  height: auto;
   border-radius: 20px;
   margin-bottom: 1rem;
-  object-fit: cover;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+.product:hover img {
+  transform: scale(1.05);
 }
 .product h3 {
   color: #4b2e05;
@@ -1567,16 +1586,16 @@ body {
   background: linear-gradient(90deg, #8b6b2b, #d4af37);
   color: white;
   border: none;
-  padding: 10px 22px;
+  padding: 12px 28px;
   border-radius: 30px;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(212,175,55,0.4);
+  box-shadow: 0 0 20px rgba(212,175,55,0.5);
 }
 .buy-btn:hover {
-  transform: scale(1.07);
-  box-shadow: 0 0 25px rgba(212,175,55,0.7);
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(212,175,55,0.8);
 }
 
 /* === MODALS === */
@@ -1585,18 +1604,21 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   justify-content: center;
   align-items: center;
   z-index: 2000;
   padding: 1rem;
 }
+.glass {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(212,175,55,0.5);
+}
 .modal-content {
   position: relative;
-  background: linear-gradient(145deg, #fff8e1, #f6efd8);
-  border: 2px solid #d4af37;
   border-radius: 25px;
-  box-shadow: 0 0 40px rgba(212,175,55,0.5);
+  box-shadow: 0 0 50px rgba(212,175,55,0.4);
   padding: 2rem;
   width: min(600px, 95%);
   animation: fadeInUp 0.4s ease;
@@ -1703,26 +1725,12 @@ body {
 
 /* === RESPONSIVE FIX === */
 @media (max-width: 768px) {
-  .product-list {
-    grid-template-columns: 1fr 1fr;
-  }
-  .product {
-    padding: 1rem;
-  }
+  .product-list { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
-  .product-list {
-    grid-template-columns: 1fr;
-  }
-  .product {
-    width: 100%;
-  }
-  .modal-content {
-    padding: 1.5rem;
-  }
-  .checkout-btn {
-    width: 100%;
-  }
+  .product-list { grid-template-columns: 1fr; }
+  .modal-content { padding: 1.5rem; }
+  .checkout-btn { width: 100%; }
 }
 </style>
 
@@ -1752,7 +1760,7 @@ function changeQty(num) {
 }
 
 function removeItem() {
-  alert("Item removed from your royal cart!");
+  alert("🗑️ Item removed from your Royal Cart!");
   closeCart();
 }
 
@@ -1772,6 +1780,7 @@ function confirmPayment(e) {
   closePayment();
 }
 </script>
+
     
 
 <!-- About Section -->
@@ -2167,6 +2176,7 @@ body {
   
 </body>
 </html>
+
 
 
 
